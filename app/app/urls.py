@@ -30,5 +30,6 @@ urlpatterns = [
         name='api-docs',
     ),
     path('api/token/', include('token_api.api.urls')),
-    path('api/user/', include('user.api.urls'))
+    path('api/user/', include('user.api.urls')),
+    path('api/profile/', include('user.urls'))
 ]

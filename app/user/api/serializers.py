@@ -16,13 +16,15 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
+            'id',
             'first_name',
             'last_name',
+            'password',
+            'username',
             'email',
-            'birthDay',
+            'birthday',
             'gender',
             'is_active',
-            'last_login',
         ]
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 

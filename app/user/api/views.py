@@ -1,20 +1,33 @@
 """
-Views for the user API.
+Views for the user API
 """
-from rest_framework import generics, permissions
-from user.api.serializers import (
-    UserSerializer
-)
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from django.contrib.auth import get_user_model
 
-class CreateUserView(generics.CreateAPIView):
-    """Create a new user in the system."""
-    serializer_class = UserSerializer
+from rest_framework import generics, authentication, permissions
+from rest_framework import viewsets
+from user.api.serializers import UserSerializer
+
+from django_filters import rest_framework as filters
 
 class ManageUserView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
-    """Manage the authenticated user."""
+    """Manage the authenticated user"""
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        """Retrieve and return the authenticated user."""
+        """Retrieve and return the authenticated user. """
         return self.request.user
+        
+class UserFilter(filters.FilterSet):
+    class Meta:
+        model = get_user_model()
+        fields = {
+            'username' : ['icontains']
+        }
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+    filterset_class = UserFilter
+
+    permission_classes = [permissions.IsAuthenticated]
