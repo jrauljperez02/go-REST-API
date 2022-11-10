@@ -12,6 +12,13 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
+def user_image_file_path(instance, filename):
+    """Generate file path for new recipe image."""
+    ext = os.path.splitext(filename)[1]
+    filename = f'{uuid.uuid4()}{ext}'
+
+    return os.path.join('uploads', 'user', filename)
+
 class UserManager(BaseUserManager):
     """Manager for users."""
 
@@ -42,6 +49,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     birthday =  models.DateField(null = True)
     gender = models.CharField(null = True, max_length = 255)
     username = models.CharField(null = False, max_length = 255)
+
+    profile_picture = models.ImageField(null=True, upload_to=user_image_file_path)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

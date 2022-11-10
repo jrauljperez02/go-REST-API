@@ -5,3 +5,4 @@ djangorestframework-simplejwt
 django-cors-headers
 django-filter
 psycopg2>=2.8.6,<2.9
+Pillow>=8.2.0,<8.3.0
