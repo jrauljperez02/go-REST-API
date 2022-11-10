@@ -34,7 +34,8 @@ urlpatterns = [
     ),
     path('api/token/', include('tokens.api.urls')),
     path('api/user/', include('user.api.urls')),
-    path('api/profile/', include('user.urls'))
+    path('api/profile/', include('user.urls')),
+    path('api/post/', include("post.api.urls"))
 ]
 
 
