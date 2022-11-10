@@ -23,11 +23,11 @@ class UserFilter(filters.FilterSet):
     class Meta:
         model = get_user_model()
         fields = {
-            'username' : ['icontains']
+            'name' : ['icontains'],
         }
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     filterset_class = UserFilter
 
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]

@@ -4,3 +4,4 @@ drf-spectacular>=0.15.1,<0.16
 djangorestframework-simplejwt
 django-cors-headers
 django-filter
+psycopg2>=2.8.6,<2.9

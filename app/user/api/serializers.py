@@ -9,7 +9,6 @@ from django.utils.translation import gettext as _
 
 from rest_framework import serializers
 
-
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
 
@@ -17,8 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = [
             'id',
-            'first_name',
-            'last_name',
+            'name',
             'password',
             'username',
             'email',

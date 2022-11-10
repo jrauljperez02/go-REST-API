@@ -37,8 +37,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     birthday =  models.DateField(null = True)
     gender = models.CharField(null = True, max_length = 255)
