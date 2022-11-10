@@ -53,3 +53,18 @@ class ModelTests(TestCase):
             'test@example.com',
             'test123',
         )
+
+    def test_create_post(self):
+        """Test craete a post is successfull"""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123',
+        )
+        post = models.Post.objects.create(
+            user = user,
+            description = 'Sample description',
+            post_image = 'http://www.image.png',
+            publish_date = '2002-12-12',
+        )
+
+        self.assertEqual(str(post), post.description)

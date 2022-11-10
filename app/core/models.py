@@ -58,3 +58,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Post(models.Model):
+    """Post object in the system"""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    description = models.CharField(max_length=1000) 
+    post_image = models.URLField()
+    publish_date = models.DateField()
+
+
+    def __str__(self):
+        return self.description
