@@ -7,6 +7,7 @@ from post.api import views
 
 router = DefaultRouter()
 router.register('posts', views.PostViewSet)
+router.register('all', views.AllPostViewSet)
 
 app_name = 'post'
 

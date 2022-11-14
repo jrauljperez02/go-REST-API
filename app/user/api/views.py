@@ -10,7 +10,6 @@ from user.api.serializers import UserSerializer
 
 from django_filters import rest_framework as filters
 
-
         
 class UserFilter(filters.FilterSet):
     class Meta:
@@ -22,5 +21,19 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     filterset_class = UserFilter
+
+    permission_classes = [permissions.IsAuthenticated]
+
+@extend_schema_view(
+    list = extend_schema(description = 'Allow obtain a account list'),
+    retrieve = extend_schema(description = 'Allos obtain a specific account'),
+    create = extend_schema(description = 'Allow create a new account'),
+    update = extend_schema(description = 'Allow update an existing account'),
+    destroy = extend_schema(description = 'Allows delete a account'),
+)
+class AllUsersViewSet(viewsets.ModelViewSet):
+    """View for manage all Posts APIs"""
+    serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
 
     permission_classes = [permissions.IsAuthenticated]

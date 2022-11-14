@@ -4,6 +4,9 @@ Database models.
 import uuid
 import os
 
+from datetime import datetime
+
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -67,9 +70,9 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    description = models.CharField(max_length=1000) 
-    post_image = models.URLField()
-    publish_date = models.DateField()
+    description = models.CharField(max_length=1000, null= True, blank=True) 
+    post_image = models.URLField(null=True, blank=True)
+    publish_date = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
