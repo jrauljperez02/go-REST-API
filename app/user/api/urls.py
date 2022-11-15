@@ -9,7 +9,7 @@ from user import views
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
-router.register('all-users', AllUsersViewSet)
+# router.register('all-users', AllUsersViewSet)
 
 app_name = 'user'
 

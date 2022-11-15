@@ -11,12 +11,12 @@ from core.models import Post
 from drf_spectacular.utils import extend_schema, extend_schema_view
 
 
+
+
 class PostFilter(filters.FilterSet):
     class Meta:
         model = Post
-        fields = {
-            'description' : ['icontains']
-        }
+        fields = ['user']
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -27,7 +27,7 @@ class PostViewSet(viewsets.ModelViewSet):
         """Retrieve posts for authenticated user."""
         return self.queryset.filter(user=self.request.user).order_by('-id')
 
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 
 @extend_schema_view(

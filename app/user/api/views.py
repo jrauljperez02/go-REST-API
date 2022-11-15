@@ -9,20 +9,19 @@ from rest_framework import viewsets
 from user.api.serializers import UserSerializer
 
 from django_filters import rest_framework as filters
-
         
 class UserFilter(filters.FilterSet):
     class Meta:
         model = get_user_model()
-        fields = {
-            'name' : ['icontains']
-        }
+        fields = ['username', 'name']
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     filterset_class = UserFilter
 
     permission_classes = [permissions.IsAuthenticated]
+
+
 
 @extend_schema_view(
     list = extend_schema(description = 'Allow obtain a account list'),
