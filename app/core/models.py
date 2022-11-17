@@ -16,11 +16,18 @@ from django.contrib.auth.models import (
 )
 
 def user_image_file_path(instance, filename):
-    """Generate file path for new recipe image."""
+    """Generate file path for new user image."""
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}{ext}'
 
     return os.path.join('uploads', 'user', filename)
+
+def post_image_file_path(instance, filename):
+    """Generate file path for new post image."""
+    ext = os.path.splitext(filename)[1]
+    filename = f'{uuid.uuid4()}{ext}'
+
+    return os.path.join('uploads', 'post', filename)
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -72,9 +79,9 @@ class Post(models.Model):
         default="Free"
     )
     description = models.CharField(max_length=1000, null= True, blank=True) 
-    post_image = models.URLField(null=True, blank=True)
+    post_image = models.ImageField(null=True, upload_to=post_image_file_path, blank=True)
     publish_date = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
-        return self.description
+        return str(self.id)
