@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'birthday',
             'gender',
-            'is_active',
+            'is_online',
         ]
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 

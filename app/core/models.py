@@ -15,6 +15,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
+from django.contrib.auth import get_user_model
+
 def user_image_file_path(instance, filename):
     """Generate file path for new user image."""
     ext = os.path.splitext(filename)[1]
@@ -62,8 +64,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     profile_picture = models.ImageField(null=True, upload_to=user_image_file_path)
 
+    is_online = models.BooleanField(default=True)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+
+
+    # followers = models.ManyToManyField(get_user_model(), related_name='followers')
 
     objects = UserManager()
 
@@ -81,7 +88,6 @@ class Post(models.Model):
     description = models.CharField(max_length=1000, null= True, blank=True) 
     post_image = models.ImageField(null=True, upload_to=post_image_file_path, blank=True)
     publish_date = models.DateTimeField(auto_now_add=True)
-
 
     def __str__(self):
         return str(self.id)
