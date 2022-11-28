@@ -62,14 +62,26 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
+    # User data
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     birthday =  models.DateField(null = True)
     gender = models.CharField(null = True, max_length = 255)
     username = models.CharField(null = False, max_length = 255)
+    phone = models.CharField(null=True, max_length=15, blank=True)
+    city = models.CharField(null=True, max_length=255, blank=True)
+
 
     profile_picture = models.ImageField(null=True, upload_to=user_image_file_path)
     cover_picture = models.ImageField(null=True, upload_to=user_header_image_file_path)
+
+    # User links
+    website_link = models.URLField(null=True, blank=True)
+    github_link =  models.URLField(null=True, blank=True)
+    twitter_link =  models.URLField(null=True, blank=True)
+    instagram_link =  models.URLField(null=True, blank=True)
+    facebook_link =  models.URLField(null=True, blank=True)
+    
 
     is_online = models.BooleanField(default=True)
 
@@ -93,6 +105,21 @@ class Post(models.Model):
     description = models.CharField(max_length=1000, null= True, blank=True) 
     post_image = models.ImageField(null=True, upload_to=post_image_file_path, blank=True, )
     publish_date = models.DateTimeField(auto_now_add=True)
+
+    comments = models.ManyToManyField("Comment", null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Comment(models.Model):
+    """Comment object"""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    comment = models.CharField(max_length=1000, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.id)

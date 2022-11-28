@@ -18,14 +18,21 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'profile_picture',
-            'cover_picture',
             'password',
             'username',
             'email',
             'birthday',
             'gender',
             'is_online',
+        ] + [
+            'website_link',
+            'github_link',
+            'twitter_link',
+            'instagram_link',
+            'facebook_link',
+        ] + [
+            'profile_picture',
+            'cover_picture',
         ]
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
